@@ -5,6 +5,7 @@ from .models import Recipes
 
 # Create your views here.
 
+
 class RecipeView(viewsets.ModelViewSet):
     serializer_class = RecipeSerializer
     queryset = Recipes.objects.all()

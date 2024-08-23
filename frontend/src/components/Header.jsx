@@ -1,40 +1,45 @@
 /* eslint-disable no-unused-vars */
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import RestaurantMenuFilledIcon from "@mui/icons-material/RestaurantMenuOutlined";
-import { Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from "@mui/material";
 import axios from "axios";
 import { useState } from "react";
 
-function Header({data, getData}) {
- const [formOpen, setFormOpen] = useState(false);
- const [title, setTitle] = useState("")
- const [cuisine, setCuisine] = useState("")
- const [instructions, setInstructions] = useState("")
- const [difficulty, setDifficulty] = useState(0)
- const [author, setAuthor] = useState("")
- const [error, setError] = useState(false);
+function Header({ data, getData }) {
+  const [formOpen, setFormOpen] = useState(false);
+  const [title, setTitle] = useState("");
+  const [cuisine, setCuisine] = useState("");
+  const [instructions, setInstructions] = useState("");
+  const [difficulty, setDifficulty] = useState(0);
+  const [author, setAuthor] = useState("");
+  const [error, setError] = useState(false);
 
- const handleCreate = () => {
-   if (!title || !cuisine || !instructions || !author) {
-     setError(true);
-     return;
-   }
-   const newRecipe = {
-     title: title,
-     cuisine: cuisine,
-     instructions: instructions,
-     difficulty: difficulty,
-     author: author,
-   };
-   axios
-     .post("http://127.0.0.1:8000/api/recipes/", newRecipe)
-     .then(() => {
-       getData();
-     })
-     .catch((error) => alert("Error:", error));
-   setFormOpen(false);
-   setError(false);
- };
+  const handleCreate = () => {
+    if (!title || !cuisine || !instructions || !author) {
+      setError(true);
+      return;
+    }
+    const newRecipe = {
+      title: title,
+      cuisine: cuisine,
+      instructions: instructions,
+      difficulty: difficulty,
+      author: author,
+    };
+    axios
+      .post("http://127.0.0.1:8000/api/recipes/", newRecipe)
+      .then(() => {
+        getData();
+      })
+      .catch((error) => alert("Error:", error));
+    setFormOpen(false);
+    setError(false);
+  };
 
   return (
     <header className="sticky top-0 z-50 flex w-full bg-white shadow-md dark:bg-gray-800">
@@ -119,8 +124,8 @@ function Header({data, getData}) {
                 onChange={(e) => {
                   const max = 5;
                   let newValue = parseInt(e.target.value, 10);
-                  newValue = newValue > max ? max : newValue
-                  setDifficulty(newValue);     
+                  newValue = newValue > max ? max : newValue;
+                  setDifficulty(newValue);
                 }}
               />
             </div>
@@ -164,9 +169,9 @@ function Header({data, getData}) {
   );
 }
 
-Header.propTypes = { 
-    data: PropTypes.array.isRequired,
-    getData: PropTypes.func.isRequired
-  }
+Header.propTypes = {
+  data: PropTypes.array.isRequired,
+  getData: PropTypes.func.isRequired,
+};
 
 export default Header;

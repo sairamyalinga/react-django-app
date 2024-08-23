@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
-import './components/Header'
-import './App.css'
-import Header from './components/Header'
-import Dashboard from './components/Dashboard'
+import "./components/Header";
+import "./App.css";
+import Header from "./components/Header";
+import Dashboard from "./components/Dashboard";
 import { useEffect, useState } from "react";
-import axios from 'axios'
+import axios from "axios";
 
 function App() {
   const [data, setData] = useState([]);
@@ -29,11 +29,10 @@ function App() {
 
   return (
     <>
-    <Header data={data} getData={getData}/>
-    <Dashboard data={data} getData={getData}/>
-     
+      <Header data={data} getData={getData} />
+      <Dashboard data={data} getData={getData} />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

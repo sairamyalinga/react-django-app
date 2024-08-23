@@ -1,12 +1,26 @@
+/* eslint-disable no-unused-vars */
+import PropTypes from 'prop-types';
 import RestaurantMenuFilledIcon from "@mui/icons-material/RestaurantMenuOutlined";
 import { Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
+import axios from "axios";
 import { useState } from "react";
+
+function Header({data, getData}) {
  const [formOpen, setFormOpen] = useState(false);
  const [title, setTitle] = useState("")
  const [cuisine, setCuisine] = useState("")
  const [instructions, setInstructions] = useState("")
  const [difficulty, setDifficulty] = useState(1)
  const [author, setAuthor] = useState("")
+
+ const handleCreate = () => {
+    const newRecipe = {title: title, cuisine: cuisine, instructions: instructions, difficulty: difficulty, author:author}
+    axios.post("http://127.0.0.1:8000/api/recipes/", newRecipe)
+         .then(() => {getData()})
+         .catch((error)=> alert("Error:", error));  
+    setFormOpen(false);     
+ };
+
   return (
     <header className="sticky top-0 z-50 flex w-full bg-white shadow-md dark:bg-gray-800">
       <div className="flex flex-grow items-center justify-between px-6 py-4 bg-gradient-to-r from-pink-500 to-orange-300">
@@ -97,5 +111,10 @@ import { useState } from "react";
  </header>
   );
 }
+
+Header.propTypes = { 
+    data: PropTypes.array.isRequired,
+    getData: PropTypes.func.isRequired
+  }
 
 export default Header;

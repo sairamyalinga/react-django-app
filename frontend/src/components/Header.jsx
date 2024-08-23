@@ -10,15 +10,30 @@ function Header({data, getData}) {
  const [title, setTitle] = useState("")
  const [cuisine, setCuisine] = useState("")
  const [instructions, setInstructions] = useState("")
- const [difficulty, setDifficulty] = useState(1)
+ const [difficulty, setDifficulty] = useState(0)
  const [author, setAuthor] = useState("")
+ const [error, setError] = useState(false);
 
  const handleCreate = () => {
-    const newRecipe = {title: title, cuisine: cuisine, instructions: instructions, difficulty: difficulty, author:author}
-    axios.post("http://127.0.0.1:8000/api/recipes/", newRecipe)
-         .then(() => {getData()})
-         .catch((error)=> alert("Error:", error));  
-    setFormOpen(false);     
+   if (!title || !cuisine || !instructions || !author) {
+     setError(true);
+     return;
+   }
+   const newRecipe = {
+     title: title,
+     cuisine: cuisine,
+     instructions: instructions,
+     difficulty: difficulty,
+     author: author,
+   };
+   axios
+     .post("http://127.0.0.1:8000/api/recipes/", newRecipe)
+     .then(() => {
+       getData();
+     })
+     .catch((error) => alert("Error:", error));
+   setFormOpen(false);
+   setError(false);
  };
 
   return (
@@ -34,18 +49,25 @@ function Header({data, getData}) {
       </div>
     
      <Dialog
-     sx={{ '& .MuiDialog-paper': { width: '80%', maxHeight: 435 } }}
+     sx={{ '& .MuiDialog-paper': { width: '80%', maxHeight: 500 } }}
      maxWidth="xs"
      onClose={()=> setFormOpen(false)}
      open={formOpen}
    >
     <DialogTitle>Create Recipe</DialogTitle>
     <DialogContent>
+    {error && (
+          <p className="text-red-500 mb-4">
+            Please fill in all required fields.
+          </p>
+        )}
+        <div>
         <div className="pt-2">
             <label>Title</label>
             <input
              type="text"
-             className="w-full rounded border border-stroke py-3 px-4.5 pl-3 mt-2 mb-2 text-black hover:border-orange-500 focus:border-orange-500 active:border-orange-600 focus-visible:outline-none"
+             required
+             className={`w-full rounded border ${error && !title ? 'border-red-500' : 'border-stroke'}  py-3 px-4 pl-3 mt-2 mb-2 text-black hover:border-orange-500 focus:border-orange-500 active:border-orange-600 focus-visible:outline-none`}
              placeholder="Enter the name of dish"
              onChange={(e)=>{setTitle(e.target.value)}}
 
@@ -55,7 +77,8 @@ function Header({data, getData}) {
             <label>Cuisine</label>
             <input
              type="text"
-             className="w-full rounded border border-stroke py-3 px-4.5 pl-3 mt-2 mb-2 text-black hover:border-orange-500 focus:border-orange-500 active:border-orange-600 focus-visible:outline-none"
+             required
+             className={`w-full rounded border ${error && !cuisine ? 'border-red-500' : 'border-stroke'}  py-3 px-4 pl-3 mt-2 mb-2 text-black hover:border-orange-500 focus:border-orange-500 active:border-orange-600 focus-visible:outline-none`}
              placeholder="Enter Cuisine"
              onChange={(e)=>{setCuisine(e.target.value)}}
 
@@ -65,7 +88,8 @@ function Header({data, getData}) {
             <label>Instructions</label>
             <input
              type="text"
-             className="w-full rounded border border-stroke py-3 px-4.5 pl-3 mt-2 mb-2 text-black hover:border-orange-500 focus:border-orange-500 active:border-orange-600 focus-visible:outline-none"
+             required
+             className={`w-full rounded border ${error && !instructions ? 'border-red-500' : 'border-stroke'}  py-3 px-4 pl-3 mt-2 mb-2 text-black hover:border-orange-500 focus:border-orange-500 active:border-orange-600 focus-visible:outline-none`}
              placeholder="Instructions to cook"
              onChange={(e)=>{setInstructions(e.target.value)}}
 
@@ -75,32 +99,33 @@ function Header({data, getData}) {
             <label>Difficulty</label>
             <input
              type="number"
-             className="w-full rounded border border-stroke py-3 px-4.5 pl-3 mt-2 mb-2 text-black hover:border-orange-500 focus:border-orange-500 active:border-orange-600 focus-visible:outline-none"
+             className="w-full rounded border border-stroke py-3 px-4 pl-3 mt-2 mb-2 text-black hover:border-orange-500 focus:border-orange-500 active:border-orange-600 focus-visible:outline-none"
              placeholder="Difficulty level on scale of 5"
              onChange={(e)=>{setDifficulty(e.target.value)}}
-
             />
         </div>
         <div className="pt-2">
             <label>Author</label>
             <input
              type="text"
-             className="w-full rounded border border-stroke py-3 px-4.5 pl-3 mt-2 mb-2 text-black hover:border-orange-500 focus:border-orange-500 active:border-orange-600 focus-visible:outline-none "
+             required
+             className={`w-full rounded border ${error && !author? 'border-red-500' : 'border-stroke'}  py-3 px-4 pl-3 mt-2 mb-2 text-black hover:border-orange-500 focus:border-orange-500 active:border-orange-600 focus-visible:outline-none`}
              placeholder="Author"
              onChange={(e)=>{setAuthor(e.target.value)}}
 
             />
         </div>
+        </div>
     </DialogContent>
     <DialogActions>
           <button
-            className="inline-flex items-center w-max justify-center gap-2.5 rounded right bg-red-600 py-2 px-2 text-center font-small text-white hover:bg-opacity-90 lg:px-8 xl:px-10"
+            className="inline-flex items-center w-max justify-center gap-2.5 rounded right py-2 px-2 text-center text-red-500 font-small hover:bg-opacity-90 lg:px-8 xl:px-10"
             onClick={() =>{setFormOpen(false)}}
           >
             Cancel
           </button>
           <button
-            className="inline-flex items-center w-max justify-center gap-2.5 rounded right bg-red-600 py-2 px-2 text-center font-small text-white hover:bg-opacity-90 lg:px-8 xl:px-10" 
+            className="inline-flex items-center w-max justify-center bg-gradient-to-r from-pink-400 to-orange-300 text-white font-semibold py-2 px-4 rounded-lg hover:bg-gray-100 transition duration-200" 
             onClick={()=>{handleCreate()}}
           >
             Save

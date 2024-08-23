@@ -24,38 +24,67 @@ function Dashboard({data, getData}) {
   const recipeDataItems = data.map((recipe, key) => {
     return (
       <Card
-        key={key}
-        sx={{
-          maxWidth: 345,
-          px: 2,
-          outline: "10px solid #FFDEAD",
-          backgroundColor: "#FFF5EE",
-        }}
-      >
-        <CardContent>
-          <Typography variant="h5" component="div">
-            {recipe.title}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            <strong>Cuisine:</strong> {recipe.cuisine}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            <strong>Instructions:</strong> {recipe.instructions}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            <strong>Difficulty:</strong> {recipe.difficulty}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            <strong>Author:</strong> {recipe.author}
-          </Typography>
-        </CardContent>
-        <CardActions>
-          <Button size="small" onClick={() => handleDelete(recipe.id)}>
-            Delete
-          </Button>
-        </CardActions>
-      </Card>
-    );
+      key={key}
+      sx={{
+        maxWidth: 345,
+        m: 2,
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+        borderRadius: '12px',
+        border: '1px solid #FFDEAD',
+        backgroundColor: '#FFF5EE',
+        transition: 'transform 0.3s ease-in-out',
+        '&:hover': {
+          transform: 'scale(1.05)',
+          boxShadow: '0 6px 12px rgba(0, 0, 0, 0.2)',
+        },
+      }}
+    >
+      <CardContent>
+        <Typography
+          variant="h5"
+          sx={{
+            textAlign: 'center',
+            fontWeight: 'bold',
+            color: '#FF6347',
+            mb: 2,
+          }}
+        >
+          {recipe.title}
+        </Typography>
+        <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+          <strong>Cuisine:</strong> {recipe.cuisine}
+        </Typography>
+        <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+          <strong>Instructions:</strong> {recipe.instructions}
+        </Typography>
+        <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+          <strong>Difficulty:</strong> {recipe.difficulty}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          <strong>Author:</strong> {recipe.author}
+        </Typography>
+      </CardContent>
+      <CardActions sx={{ justifyContent: 'center' }}>
+        <Button
+          size="small"
+          variant="contained"
+          color="error"
+          onClick={() => handleDelete(recipe.id)}
+          sx={{
+            textTransform: 'none',
+            fontWeight: 'bold',
+            borderRadius: '10px',
+            backgroundColor: '#FF6347',
+            '&:hover': {
+              backgroundColor: '#FF4500',
+            },
+          }}
+        >
+          Delete
+        </Button>
+      </CardActions>
+    </Card>)
+    
   });
 
   return (

@@ -151,7 +151,7 @@ function Header({data, getData}) {
             Cancel
           </button>
           <button
-            className="inline-flex items-center w-max justify-center bg-gradient-to-r from-pink-400 to-orange-300 text-white font-semibold py-2 px-4 rounded-lg hover:bg-gray-100 transition duration-200"
+            className="inline-flex items-center w-max justify-center bg-orange-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-gray-100 transition duration-200"
             onClick={() => {
               handleCreate();
             }}

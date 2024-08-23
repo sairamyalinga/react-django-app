@@ -30,8 +30,7 @@ if (error) {
 const recipeDataItems = data.map((recipe, key) => {
     
     return (
-        <Card key={key} sx={{ maxWidth: 345 }}>
-            <h1>{recipe.title}</h1>
+        <Card key={key} sx={{ maxWidth: 345, px: 2, outline: '10px solid #FFDEAD', backgroundColor: '#FFF5EE' }}>
             <CardContent>
                 <Typography variant="h5" component="div">
                     {recipe.title}
@@ -59,7 +58,7 @@ const recipeDataItems = data.map((recipe, key) => {
 return (
     <div>
         <h1>Recipes</h1>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', marginTop: '22px', marginLeft: '22px' }}>
             {recipeDataItems}
         </div>
     </div>

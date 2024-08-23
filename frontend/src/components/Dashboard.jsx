@@ -1,5 +1,6 @@
 import axios from "axios";
 import PropTypes from 'prop-types';
+import NoDataIcon from "../assets/no-data.jpg"
 import {
   Card,
   CardContent,
@@ -88,18 +89,24 @@ function Dashboard({data, getData}) {
   });
 
   return (
-    <div>
-      <h1>Recipes</h1>
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          marginTop: "22px",
-          marginLeft: "22px",
-        }}
-      >
-        {recipeDataItems}
-      </div>
+    <div className="flex flex-wrap mt-6 ml-6">
+      {recipeDataItems.length !== 0 ? (
+        recipeDataItems
+      ) : (
+        <div className="flex flex-col justify-center items-center min-h-[700px] w-full text-center">
+          <img
+            src={NoDataIcon}
+            alt="No recipes to display. Please create one"
+            style={{
+              width: "500px",
+              height: "auto",
+            }}
+          />
+          <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+            No recipes to display. Please create one.
+          </Typography>
+        </div>
+      )}
     </div>
   );
 }

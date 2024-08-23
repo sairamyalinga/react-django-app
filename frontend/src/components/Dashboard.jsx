@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import PropTypes from 'prop-types';
 import {
   Card,
   CardContent,
@@ -8,23 +8,8 @@ import {
   CardActions,
 } from "@mui/material";
 
-function Dashboard() {
-  const [data, setData] = useState([]);
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  const getData = () => {
-    axios
-      .get("http://127.0.0.1:8000/api/recipes/")
-      .then((response) => {
-        setData(response.data);
-        console.log(response.data);
-      })
-      .catch((error) => {
-        setError(error.message || "Something went wrong");
-        setLoading(false);
-      });
-  };
+function Dashboard({data, getData}) {
+ 
   const handleDelete = (recipeId) => {
     axios
       .delete(`http://127.0.0.1:8000/api/recipes/${recipeId}/`)
@@ -32,21 +17,10 @@ function Dashboard() {
         getData();
       })
       .catch((error) => {
-        setError(error);
+        alert(error);
       });
   };
-  useEffect(() => {
-    getData();
-  }, []);
-
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
-  if (error) {
-    return <p>Error: {error}</p>;
-  }
-
+ 
   const recipeDataItems = data.map((recipe, key) => {
     return (
       <Card
@@ -100,5 +74,10 @@ function Dashboard() {
     </div>
   );
 }
+Dashboard.propTypes = { 
+  data: PropTypes.array.isRequired,
+  getData: PropTypes.func.isRequired
+}
+
 
 export default Dashboard;

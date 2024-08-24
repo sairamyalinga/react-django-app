@@ -24,6 +24,9 @@ This application is a full-stack recipe management system. It allows users to pe
 
 1. **Frontend Setup:**
    - Navigate to the `frontend` directory.
+   -  ```bash
+      cd frontend
+      ```
    - Install dependencies:
      ```bash
      npm install
@@ -35,7 +38,14 @@ This application is a full-stack recipe management system. It allows users to pe
 
 2. **Backend Setup:**
    - Navigate to the `server` directory.
-   - Start the Django development server:
+   - ``` bash
+     cd server
+     ```
+   - Install dependencies using pip3/pip:
+     ```bash
+     pip3 install -r requirements.txt
+     ```
+   - Start the Django development server using python3/python:
      ```bash
      python3 manage.py runserver
      ```
@@ -43,4 +53,7 @@ This application is a full-stack recipe management system. It allows users to pe
 3. **Access the Application:**
    - React client: [http://localhost:5173](http://localhost:5173)
    - Django server: [http://localhost:8000](http://localhost:8000)
+
+### Notes:
+Replace pip with pip3 and python with python3 if you’re using a system where Python 2 and 3 coexist and you need to specify Python 3 explicitly.
 

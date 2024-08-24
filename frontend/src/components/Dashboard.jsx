@@ -64,7 +64,7 @@ function Dashboard({ data, getData }) {
             <strong>Author:</strong> {recipe.author}
           </Typography>
         </CardContent>
-        <CardActions sx={{ justifyContent: "center" }}>
+        <CardActions sx={{ justifyContent: "right" }}>
           <Button
             size="small"
             variant="contained"

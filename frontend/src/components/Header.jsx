@@ -147,7 +147,7 @@ function Header({ data, getData }) {
         </DialogContent>
         <DialogActions>
           <button
-            className="inline-flex items-center w-max justify-center gap-2.5 rounded right py-2 px-2 text-center text-red-500 font-small hover:bg-opacity-90 lg:px-8 xl:px-10"
+            className="inline-flex items-center w-max justify-center gap-2.5 rounded right py-2 px-2 text-center text-red-500 font-small hover:bg-opacity-90 lg:px-3 xl:px-4"
             onClick={() => {
               setFormOpen(false);
               setError(false);

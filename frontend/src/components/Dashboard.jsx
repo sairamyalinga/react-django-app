@@ -1,15 +1,22 @@
 import axios from "axios";
 import PropTypes from "prop-types";
 import NoDataIcon from "../assets/no-data.jpg";
+import { useState } from "react";
 import {
   Card,
   CardContent,
   Typography,
   Button,
   CardActions,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  Box,
 } from "@mui/material";
 
 function Dashboard({ data, getData }) {
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [id, setId] = useState();
   const handleDelete = (recipeId) => {
     axios
       .delete(`http://127.0.0.1:8000/api/recipes/${recipeId}/`)
@@ -19,6 +26,7 @@ function Dashboard({ data, getData }) {
       .catch((error) => {
         alert(error);
       });
+      setDialogOpen(false);
   };
 
   const recipeDataItems = data.map((recipe, key) => {
@@ -69,7 +77,10 @@ function Dashboard({ data, getData }) {
             size="small"
             variant="contained"
             color="error"
-            onClick={() => handleDelete(recipe.id)}
+            onClick={() => {
+              setDialogOpen(true);
+              setId(recipe.id);
+            }}
             sx={{
               textTransform: "none",
               fontWeight: "bold",
@@ -106,6 +117,47 @@ function Dashboard({ data, getData }) {
           </Typography>
         </div>
       )}
+      <Dialog
+        sx={{ "& .MuiDialog-paper": { width: "80%", maxHeight: 200 } }}
+        maxWidth="xs"
+        onClose={() => setDialogOpen(false)}
+        open={dialogOpen}
+      >
+        <DialogTitle>Delete Recipe</DialogTitle>
+        <DialogContent>
+          <Typography variant="body1">
+            Are you sure you want to delete this recipe?
+          </Typography>
+          <Box mt={2} display="flex" justifyContent="flex-end">
+            <Button
+              onClick={() => setDialogOpen(false)}
+              sx={{
+                color: "#D2042D",
+                textTransform: "none",
+                marginRight: "6px",
+              }}
+            >
+              Cancel
+            </Button>
+
+            <Button
+              onClick={() => handleDelete(id)}
+              size="small"
+              variant="contained"
+              sx={{
+                textTransform: "none",
+                fontWeight: "bold",
+                backgroundColor: "#FF6347",
+                "&:hover": {
+                  backgroundColor: "#FF6347",
+                },
+              }}
+            >
+              Delete
+            </Button>
+          </Box>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

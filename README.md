@@ -38,15 +38,14 @@ This application is a full-stack recipe management system. It allows users to pe
 
 2. **Backend Setup:**
    - Navigate to the `server` directory.
-     
-    ``` bash
+     ``` bash
      cd server
      ```
    - Create a virtual environment
      ```bash
      python3 -m venv recipes
      ```
-    - Install dependencies
+   - Install dependencies
      ```bash
      recipes/bin/pip3 install -r requirements.txt
      ```
@@ -68,6 +67,6 @@ This application is a full-stack recipe management system. It allows users to pe
    - Django server: [http://localhost:8000](http://localhost:8000)
 
 ### Notes:
-- This setup assumes you have Linux/MacOS environment. For Windows, update the commands accordingly.
+- This setup assumes you have **Linux/MacOS** environment. For Windows, update the commands accordingly.
 - Replace pip with pip3 and python with python3 if you’re using a system where Python 2 and 3 coexist and you need to specify Python 3 explicitly.
 

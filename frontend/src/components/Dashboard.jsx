@@ -86,6 +86,7 @@ function Dashboard({ data, getData }) {
               fontWeight: "bold",
               borderRadius: "10px",
               backgroundColor: "#FF6347",
+              marginTop:"-12px",
               "&:hover": {
                 backgroundColor: "#FF4500",
               },
